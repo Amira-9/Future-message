@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Write Your Future Message</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    @font-face {
+      font-family: 'CooperBlack';
+      src: url('COOPBL.TTF') format('truetype');
+    }
+
+    body {
+      margin: 0;
+      font-family: 'CooperBlack', sans-serif;
+      background-color: #1d1d1d;
+      color: #a18282;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .content-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* دي بتخلي المحتوى يتوسّط عموديًا */
+  align-items: center;
+  max-width: 500px;
+  width: 100%;
+  min-height: 500px; /* زودي الطول شوية علشان يبقى فيه مساحة */
+  background-color: #2b2b2b;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(183, 146, 145, 0.3);
+}
+
+
+    .form-style {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* عشان العناصر تاخد العرض كله */
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+input, textarea {
+  width: 100%; /* خلي الحقول تملى العرض */
+  box-sizing: border-box; /* مهم علشان padding ما يتسببش في overflow */
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  font-family: 'CooperBlack', sans-serif;
+  border-radius: 10px;
+  border: 2px solid #b79291;
+  background-color: #1d1d1d;
+  color: #b79291;
+  outline: none;
+  transition: 0.3s;
+}
+
+
+    input:focus,
+    textarea:focus {
+      border-color: #d6aaaa;
+      box-shadow: 0 0 5px rgba(183, 146, 145, 0.5);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .send-btn {
+  width: 100%;
+  background-color: #b79291;
+  color: #1d1d1d;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 0.7rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+
+    .send-btn:hover {
+      background-color: #d6aaaa;
+    }
+
+    .confirmation-text {
+      display: none;
+      margin-top: 1.5rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #b79291;
+      background-color: #1d1d1d;
+      border: 1px solid #b79291;
+      border-radius: 10px;
+      padding: 1rem;
+    }
+
+    @media (max-width: 500px) {
+  body {
+    padding: 1rem;
+  }
+
+  .content-box {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    line-height: 1.4;
+  }
+
+  .send-btn {
+    font-size: 1rem;
+    padding: 0.6rem;
+  }
+
+  input, textarea {
+    font-size: 0.95rem;
+    padding: 0.7rem 0.9rem;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="content-box">
+    <h1>WRITE YOUR<br/>FUTURE MESSAGE</h1>
+
+    <form id="messageForm" class="form-style">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Your Email" required />
+      <textarea id="message" placeholder="Write your message..." required></textarea>
+      <button type="submit" class="send-btn">Send</button>
+    </form>
+
+    <p id="confirmationMessage" class="confirmation-text"></p>
+  </div>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById("messageForm");
+      const confirmation = document.getElementById("confirmationMessage");
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const message = document.getElementById("message").value.trim();
+
+        localStorage.setItem("future_name", name);
+        localStorage.setItem("future_email", email);
+        localStorage.setItem("future_message", message);
+
+        form.reset();
+
+        confirmation.textContent = "Message saved! Wait for your future self to read it";
+        confirmation.style.display = "block";
+      });
+    });
+  </script>
+</body>
+</html>
